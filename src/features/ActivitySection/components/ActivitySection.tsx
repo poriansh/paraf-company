@@ -4,10 +4,10 @@ import {Container} from "@/shared/components/layout/container";
 
 export function ActivitySection() {
   return (
-    <section className="pb-16 sm:pb-20">
+    <section className="pb-10 sm:pb-16 md:pb-20">
       <Container>
         {/* RTL: first column (activities) sits on the right; chart on the left */}
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.05fr)] lg:items-stretch">
+        <div className="grid gap-4 sm:gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.05fr)] lg:items-stretch">
           <RecentActivitiesCard />
           <ActivityChartCard />
         </div>

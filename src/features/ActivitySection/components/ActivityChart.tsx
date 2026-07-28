@@ -113,7 +113,7 @@ export function ActivityChart({data = chartMockData}: ActivityChartProps) {
 
   return (
     <div
-      className="relative h-55 w-full"
+      className="relative h-44 w-full sm:h-50 md:h-55"
       role="img"
       aria-label="نمودار فعالیت شش‌ماهه"
     >

@@ -6,8 +6,8 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({children}: AuthLayoutProps) {
   return (
-    <div className="bg-linear-to-br h-screen from-primary/10 via-background to-secondary/40 p-4">
-      <div className="w-full flex h-full  justify-center items-center">
+    <div className="min-h-dvh bg-linear-to-br from-primary/10 via-background to-secondary/40 p-4 sm:p-6">
+      <div className="flex min-h-[calc(100dvh-2rem)] w-full items-center justify-center sm:min-h-[calc(100dvh-3rem)]">
         {children}
       </div>
     </div>

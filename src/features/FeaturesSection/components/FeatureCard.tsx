@@ -11,7 +11,7 @@ interface FeatureCardProps {
 }
 
 const cardFaceClassName =
-  "flex h-full w-full flex-col items-center rounded-3xl bg-white px-5 py-8 text-center shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:px-6 sm:py-10";
+  "flex h-full w-full flex-col items-center rounded-2xl bg-white px-4 py-6 text-center shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:rounded-3xl sm:px-6 sm:py-10";
 
 const flipTransition = {
   duration: 0.6,

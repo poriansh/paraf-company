@@ -8,7 +8,7 @@ interface FeatureCardBackProps {
 export function FeatureCardBack({ feature }: FeatureCardBackProps) {
   return (
     <>
-      <div className="mb-5 flex size-24 items-center justify-center sm:mb-6 sm:size-28">
+      <div className="mb-4 flex size-20 items-center justify-center sm:mb-6 sm:size-28">
         <Image
           src={feature.backImageSrc}
           alt={feature.backTitle}

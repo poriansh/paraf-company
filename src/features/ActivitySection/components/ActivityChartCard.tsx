@@ -6,7 +6,7 @@ import {Button} from "@/shared/components/common/button/button";
 
 export function ActivityChartCard() {
   return (
-    <div className="flex h-full flex-col rounded-[24px] bg-white p-5 shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:p-6">
+    <div className="flex h-full flex-col rounded-2xl bg-white p-4 shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:rounded-3xl sm:p-6">
       <h3 className="mb-4 text-right text-base font-bold text-slate-800 sm:text-lg">
         {chartMeta.title}
       </h3>

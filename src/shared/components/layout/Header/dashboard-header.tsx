@@ -20,12 +20,12 @@ const navigationItems = [
 export function DashboardHeader() {
   return (
     <header className="border-b border-[#e7ebed] bg-white">
-      <Container className="flex h-16 items-center gap-2 sm:h-18.5 sm:gap-5">
-        <div className="flex gap-5 w-full items-center justify-between">
+      <Container className="flex h-14 items-center gap-2 sm:h-16 sm:gap-5 md:h-18.5">
+        <div className="flex w-full items-center justify-between gap-2 sm:gap-5">
           <a aria-label="پاراف" className="shrink-0" href="#">
             <Image
               alt="پاراف؛ بازار کالا و خدمات"
-              className="h-8 w-auto sm:h-10"
+              className="h-7 w-auto max-w-28 object-contain sm:h-9 sm:max-w-none md:h-10"
               height={40}
               priority
               src="/logo/logo.png"
@@ -84,7 +84,7 @@ export function DashboardHeader() {
             ثبت آگهی جدید
           </a>
 
-          <div className="flex shrink-0 items-center gap-3 border-r border-[#e7ebed] pr-3 text-[#20272a] sm:gap-5 sm:pr-6">
+          <div className="flex shrink-0 items-center gap-2.5 border-r border-[#e7ebed] pr-2.5 text-[#20272a] sm:gap-5 sm:pr-6">
             <button
               aria-label="اعلان‌ها"
               className=" cursor-pointer transition-colors hover:text-[#0d94ca]"

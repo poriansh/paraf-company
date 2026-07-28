@@ -9,15 +9,15 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="w-full flex items-center justify-center flex-col max-w-md">
-      <div className="mb-6 flex flex-col items-center gap-3 text-center">
+    <div className="flex w-full max-w-md flex-col items-center justify-center px-1">
+      <div className="mb-5 flex flex-col items-center gap-2.5 text-center sm:mb-6 sm:gap-3">
         <div className="rounded-full bg-primary/10 p-3 text-primary">
-          <Gem className="h-7 w-7" />
+          <Gem className="h-6 w-6 sm:h-7 sm:w-7" />
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
           باشگاه مشتریان پارف
         </h1>
-        <p className="max-w-sm text-sm text-muted-foreground">
+        <p className="max-w-sm text-xs text-muted-foreground sm:text-sm">
           برای دسترسی به داشبورد باشگاه، وارد حساب کاربری خود شوید.
         </p>
       </div>

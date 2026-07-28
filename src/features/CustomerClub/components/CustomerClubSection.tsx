@@ -25,7 +25,7 @@ export function CustomerClubSection() {
   }, [users, selectedVitrinId, setSelectedVitrinId]);
 
   return (
-    <section className="pb-16 pt-4 sm:pb-20 sm:pt-6">
+    <section className="pb-10 pt-4 sm:pb-16 sm:pt-6 md:pb-20">
       <Container>
         <Tabs
           value={tabValue}

@@ -12,7 +12,7 @@ interface RootLayoutProps {
 export default function RootLayout({children}: RootLayoutProps) {
   return (
     <html className={iranSans.className} lang="fa" dir="rtl">
-      <body className="bg-background text-foreground">
+      <body className="overflow-x-hidden bg-background text-foreground">
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

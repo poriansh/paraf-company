@@ -7,9 +7,9 @@ import {Container} from "@/shared/components/layout/container";
 
 export function FeaturesSection() {
   return (
-    <section className="pb-16 sm:pb-20">
+    <section className="pb-10 sm:pb-16 md:pb-20">
       <Container>
-        <h2 className="mb-6 text-right text-xl font-bold text-slate-800 sm:mb-8 sm:text-2xl">
+        <h2 className="mb-5 text-right text-lg font-bold text-slate-800 sm:mb-8 sm:text-xl md:text-2xl">
           {featuresSectionMeta.titlePrefix}{" "}
           <span className="text-[#7C3AED]">{featuresSectionMeta.titleBrand}</span>
         </h2>

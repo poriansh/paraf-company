@@ -35,30 +35,45 @@ function ActivityRow({ item }: { item: ActivityItem }) {
   const { wrap, Icon } = iconStyles[item.type];
 
   return (
-    <li className="flex items-center gap-3 border-b border-slate-100 py-3 last:border-b-0">
-      <div
-        className={cn(
-          "flex size-9 shrink-0 items-center justify-center rounded-full",
-          wrap,
-        )}
-      >
-        <Icon className="size-4" />
+    <li className="border-b border-slate-100 py-3 last:border-b-0">
+      <div className="flex items-start gap-2.5 sm:items-center sm:gap-3">
+        <div
+          className={cn(
+            "flex size-8 shrink-0 items-center justify-center rounded-full sm:size-9",
+            wrap,
+          )}
+        >
+          <Icon className="size-3.5 sm:size-4" />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-2 sm:items-center sm:gap-3">
+            <div className="flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
+              <p className="shrink-0 text-sm font-bold text-slate-800">
+                {item.amount}
+              </p>
+              <p className="min-w-0 text-right text-xs leading-relaxed text-slate-500 sm:truncate sm:text-sm">
+                {item.description}
+              </p>
+            </div>
+
+            <span className="hidden shrink-0 rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-600 sm:inline-block">
+              {item.status}
+            </span>
+
+            <time className="hidden w-24 shrink-0 text-left text-[11px] text-slate-400 sm:block sm:w-28 sm:text-xs">
+              {item.time}
+            </time>
+          </div>
+
+          <div className="mt-1.5 flex items-center justify-between gap-2 sm:hidden">
+            <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-600">
+              {item.status}
+            </span>
+            <time className="text-[10px] text-slate-400">{item.time}</time>
+          </div>
+        </div>
       </div>
-
-      <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
-        <p className="shrink-0 text-sm font-bold text-slate-800">{item.amount}</p>
-        <p className="min-w-0 flex-1 truncate text-right text-xs text-slate-500 sm:text-sm">
-          {item.description}
-        </p>
-      </div>
-
-      <span className="hidden shrink-0 rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-600 sm:inline-block">
-        {item.status}
-      </span>
-
-      <time className="w-24 shrink-0 text-left text-[11px] text-slate-400 sm:w-28 sm:text-xs">
-        {item.time}
-      </time>
     </li>
   );
 }
@@ -72,9 +87,9 @@ export function RecentActivitiesCard() {
       : recentActivitiesMock.filter((item) => item.type === filter);
 
   return (
-    <div className="flex h-full flex-col rounded-[24px] bg-white p-5 shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:p-6">
+    <div className="flex h-full flex-col rounded-2xl bg-white p-4 shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:rounded-3xl sm:p-6">
       <div className="mb-4 flex items-start justify-between gap-3">
-        <div className="text-right">
+        <div className="min-w-0 text-right">
           <h3 className="text-base font-bold text-slate-800 sm:text-lg">
             {recentActivitiesMeta.title}
           </h3>
@@ -88,18 +103,18 @@ export function RecentActivitiesCard() {
           className="inline-flex shrink-0 items-center gap-1.5 text-xs text-slate-500 transition-colors hover:text-slate-700 sm:text-sm"
         >
           <Eye className="size-4" />
-          {recentActivitiesMeta.fullListLabel}
+          <span className="max-sm:sr-only">{recentActivitiesMeta.fullListLabel}</span>
         </button>
       </div>
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="-mx-1 mb-4 flex gap-2 overflow-x-auto px-1 pb-1 scrollbar-none">
         {activityFilters.map((tab) => (
           <button
             key={tab.value}
             type="button"
             onClick={() => setFilter(tab.value)}
             className={cn(
-              "rounded-full px-3 py-1.5 text-xs font-medium transition-colors sm:text-sm",
+              "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors sm:text-sm",
               filter === tab.value
                 ? "bg-slate-800 text-white"
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200",
@@ -110,7 +125,7 @@ export function RecentActivitiesCard() {
         ))}
       </div>
 
-      <ul className="min-h-0 flex-1 overflow-y-auto">
+      <ul className="min-h-0 max-h-80 flex-1 overflow-y-auto sm:max-h-none">
         {items.map((item) => (
           <ActivityRow key={item.id} item={item} />
         ))}

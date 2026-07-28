@@ -20,7 +20,7 @@ export function WalletBalance({count}: WalletBalanceProps) {
   return (
     <div
       className={cn(
-        "relative flex h-10 w-57.5 items-center",
+        "relative flex h-9 w-40 items-center sm:h-10 sm:w-52 md:w-57.5",
         "rounded-full bg-white",
         "shadow-[0_4px_20px_rgba(0,0,0,0.12)]",
         "px-1",
@@ -30,17 +30,17 @@ export function WalletBalance({count}: WalletBalanceProps) {
       <div
         role="progressbar"
         className={cn(
-          "absolute top-1/2 right-1 z-0 flex h-7 -translate-y-1/2 items-center justify-center",
+          "absolute top-1/2 right-1 z-0 flex h-6 -translate-y-1/2 items-center justify-center sm:h-7",
           "overflow-hidden rounded-full",
           "bg-linear-to-r from-[#8B5CF6] to-[#6D28D9]",
-          "text-xs font-medium text-white",
+          "text-[10px] font-medium text-white sm:text-xs",
           "transition-[width] duration-500 ease-out",
         )}
         style={{width: `calc((100% - 0.5rem) * ${progress})`}}
       >
-        <span className="px-2 pe-9 whitespace-nowrap">{count}</span>
+        <span className="px-2 pe-8 whitespace-nowrap sm:pe-9">{count}</span>
       </div>
-      <div className="absolute right-1 z-10 flex size-8 items-center justify-center overflow-hidden rounded-full border bg-white shadow-sm">
+      <div className="absolute right-1 z-10 flex size-7 items-center justify-center overflow-hidden rounded-full border bg-white shadow-sm sm:size-8">
         <Image
           src="/image/Breadcrumb/logoboronz.png"
           alt="avatar"

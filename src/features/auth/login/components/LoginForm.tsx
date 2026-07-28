@@ -53,15 +53,15 @@ export function LoginForm() {
 
   return (
     <Card className="w-full max-w-md border border-border/70 bg-card shadow-sm">
-      <CardHeader className="space-y-2 px-6 pb-4 pt-6">
-        <CardTitle className="text-xl font-semibold text-foreground">
+      <CardHeader className="space-y-2 px-4 pb-4 pt-5 sm:px-6 sm:pt-6">
+        <CardTitle className="text-lg font-semibold text-foreground sm:text-xl">
           ورود به حساب
         </CardTitle>
         <CardDescription className="text-sm text-muted-foreground">
           از شماره موبایل و رمز عبور خود استفاده کنید.
         </CardDescription>
       </CardHeader>
-      <CardContent className="px-6 pb-6">
+      <CardContent className="px-4 pb-5 sm:px-6 sm:pb-6">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <Input
             type="tel"
