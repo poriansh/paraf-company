@@ -19,7 +19,7 @@ export const useRequest = <TData, TSelected = TData>({
   select,
 }: UseRequestProps<TData, TSelected>) => {
   const token = getToken();
-  return useQuery({
+  return useQuery<TData, Error, TSelected>({
     queryKey,
     enabled,
     staleTime: staleTime === "Infinity" ? Infinity : staleTime,

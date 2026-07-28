@@ -1,8 +1,17 @@
-import {ArrowRight, ChevronLeft, CircleQuestionMark} from "lucide-react";
-import {WalletBalance} from "./WalletBalance";
-import {Container} from "@/shared/components/layout/container";
+"use client";
+
+import { ArrowRight, ChevronLeft, CircleQuestionMark } from "lucide-react";
+import { WalletBalance } from "./WalletBalance";
+import { Container } from "@/shared/components/layout/container";
+import { useCurrentUser } from "@/shared/services/useCurrentUser";
+
+
 
 export function BreadcrumbHeader() {
+  const { data: user } = useCurrentUser();
+
+
+
   return (
     <div className="h-14 w-full border-b bg-[rgb(245,247,247)]   flex  items-center justify-between">
       <Container>
@@ -24,17 +33,17 @@ export function BreadcrumbHeader() {
             {/* Wallet */}
             <div className="h-10 px-4 rounded-xl border border-gray-200 flex bg-white items-center gap-2 text-sm">
               <span className="text-gray-400">کیف پول:</span>
-              <span className="font-bold text-gray-700">۱۷۳,۷۹۵,۰۵۰</span>
-              <span className="text-gray-400 text-xs">تومان</span>
+              <span className="font-bold text-gray-700">—</span>
+              <span className="text-gray-400 text-xs">{user?.defaultCurrency.name}</span>
             </div>
 
             {/* Help */}
             <div className="w-8 h-8 cursor-pointer rounded-full border flex items-center justify-center bg-white text-gray-400">
-              <CircleQuestionMark size={15}/>
+              <CircleQuestionMark size={15} />
             </div>
 
             {/* Counter */}
-            <WalletBalance />
+            <WalletBalance count={user?.scores} />
           </div>
         </div>
       </Container>

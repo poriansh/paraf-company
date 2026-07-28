@@ -1,48 +1,54 @@
 import {cn} from "@/shared/lib/cn";
 import Image from "next/image";
 
+const SCORE_MAX = 200;
+
 interface WalletBalanceProps {
-  balance?: string;
-  count?: number;
+  count?: string | number;
 }
 
-export function WalletBalance({count = 150}: WalletBalanceProps) {
+function parseScore(count?: string | number) {
+  if (count === undefined || count === "") return 0;
+  const numeric = typeof count === "number" ? count : Number(count);
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
+export function WalletBalance({count}: WalletBalanceProps) {
+  const score = parseScore(count);
+  const progress = Math.min(Math.max(score / SCORE_MAX, 0), 1);
+
   return (
     <div
       className={cn(
-        "relative flex items-center h-10 w-57.5",
+        "relative flex h-10 w-57.5 items-center",
         "rounded-full bg-white",
         "shadow-[0_4px_20px_rgba(0,0,0,0.12)]",
-        "px-2",
+        "px-1",
       )}
     >
-      {/* Avatar */}
-      <div className="absolute right-1 w-8 h-8 rounded-full bg-white shadow-sm border flex items-center justify-center overflow-hidden">
+      {/* Progress — starts under the logo, grows leftward */}
+      <div
+        role="progressbar"
+        className={cn(
+          "absolute top-1/2 right-1 z-0 flex h-7 -translate-y-1/2 items-center justify-center",
+          "overflow-hidden rounded-full",
+          "bg-linear-to-r from-[#8B5CF6] to-[#6D28D9]",
+          "text-xs font-medium text-white",
+          "transition-[width] duration-500 ease-out",
+        )}
+        style={{width: `calc((100% - 0.5rem) * ${progress})`}}
+      >
+        <span className="px-2 pe-9 whitespace-nowrap">{count}</span>
+      </div>
+      <div className="absolute right-1 z-10 flex size-8 items-center justify-center overflow-hidden rounded-full border bg-white shadow-sm">
         <Image
           src="/image/Breadcrumb/logoboronz.png"
           alt="avatar"
           width={32}
           height={32}
-          className="w-full h-full object-cover"
+          className="size-full object-cover"
         />
       </div>
-      {/* Count */}
-      <div
-        className="
-          absolute left-1/2 -translate-x-1/2
-          h-7 px-5
-          rounded-full
-          bg-linear-to-r from-[#8B5CF6] to-[#6D28D9]
-          text-white
-          flex items-center justify-center
-          text-xs font-medium
-        "
-      >
-        {count}
-      </div>
-
-      {/* Empty space for future actions */}
-      <div className="flex-1" />
     </div>
   );
 }

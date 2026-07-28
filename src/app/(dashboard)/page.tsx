@@ -1,5 +1,9 @@
-import {BreadcrumbHeader} from "@/features/BreadcrumbHeader/components/BreadcrumbHeader";
+import { BreadcrumbHeader } from "@/features/BreadcrumbHeader/components/BreadcrumbHeader";
 import { WelcomeBanner } from "@/features/WelcomeBanner/components/WelcomeBanner";
+import { CustomerClubSection } from "@/features/CustomerClub";
+import { BannerSection } from "@/features/BannerSection";
+import { ActivitySection } from "@/features/ActivitySection";
+import { FeaturesSection } from "@/features/FeaturesSection";
 
 function HomePage() {
   return (
@@ -13,6 +17,10 @@ function HomePage() {
         <div className="py-20">
           <WelcomeBanner />
         </div>
+        <CustomerClubSection />
+        <BannerSection />
+        <ActivitySection />
+        <FeaturesSection />
       </div>
     </section>
   );
