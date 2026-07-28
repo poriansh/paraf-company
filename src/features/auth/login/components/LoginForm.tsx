@@ -3,15 +3,15 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 
-import {Button} from "@/shared/components/ui/button";
+import {Button} from "@/shared/components/common/button/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/shared/components/ui/card";
-import {Input} from "@/shared/components/ui/input";
+} from "@/shared/components/common/card/card";
+import {Input} from "@/shared/components/common/input/input";
 
 import {
   loginSchema,

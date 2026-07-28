@@ -1,8 +1,8 @@
 import Image from "next/image";
 import {BadgeCheck, CircleAlert, ExternalLink, SquareCheck} from "lucide-react";
 
-import {Button} from "@/shared/components/ui/button";
-import {ImagePlaceholder} from "@/features/CustomerClub/components/ImagePlaceholder";
+import {Button} from "@/shared/components/common/button/button";
+
 import type {ClubProfileData} from "@/features/CustomerClub/constants/mockData";
 
 interface ProfileCardProps {
@@ -16,7 +16,6 @@ export function ProfileCard({data}: ProfileCardProps) {
         <div className="flex flex-col gap-3">
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-row-reverse items-center gap-2.5 rounded-2xl border border-slate-100 bg-slate-50/80 px-3 py-3">
-              <ImagePlaceholder className="size-12 rounded-xl" label="coins" />
               <div className="min-w-0 text-left">
                 <p className="text-sm font-bold text-slate-800 sm:text-base">
                   {data.coins}
@@ -37,9 +36,7 @@ export function ProfileCard({data}: ProfileCardProps) {
                   className="size-12 rounded-xl object-cover"
                   unoptimized
                 />
-              ) : (
-                <ImagePlaceholder className="size-12 rounded-xl" label="level" />
-              )}
+              ) : null}
               <div className="min-w-0 text-left">
                 <p className="text-sm font-bold text-slate-800 sm:text-base">
                   {data.level}
@@ -85,10 +82,7 @@ export function ProfileCard({data}: ProfileCardProps) {
               unoptimized
             />
           ) : (
-            <ImagePlaceholder
-              className="size-20 rounded-2xl sm:size-24"
-              label="profile"
-            />
+            null
           )}
 
           <div className="min-w-0 text-left">

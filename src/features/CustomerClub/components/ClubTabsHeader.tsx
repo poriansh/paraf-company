@@ -1,4 +1,4 @@
-import { TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
+import {TabsList, TabsTrigger} from "@/shared/components/common/tabs/tabs";
 import { clubLinks } from "@/features/CustomerClub/constants/mockData";
 import type { VitrinUser } from "@/features/CustomerClub/types/vitrin.types";
 

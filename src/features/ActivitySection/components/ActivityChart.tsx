@@ -1,113 +1,123 @@
+"use client";
+
+import {
+  CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Tooltip,
+  type ChartData,
+  type ChartOptions,
+  type ScriptableContext,
+} from "chart.js";
+import {Line} from "react-chartjs-2";
+
 import type {ChartPoint} from "@/features/ActivitySection/constants/mockData";
-import {chartMockData, chartMeta} from "@/features/ActivitySection/constants/mockData";
+import {chartMockData} from "@/features/ActivitySection/constants/mockData";
 
-const WIDTH = 360;
-const HEIGHT = 220;
-const PADDING = {top: 16, right: 12, bottom: 36, left: 36};
-
-function getPointCoords(points: ChartPoint[]) {
-  const innerW = WIDTH - PADDING.left - PADDING.right;
-  const innerH = HEIGHT - PADDING.top - PADDING.bottom;
-  const maxY = 100;
-
-  return points.map((point, index) => {
-    const x =
-      PADDING.left +
-      (points.length === 1 ? innerW / 2 : (index / (points.length - 1)) * innerW);
-    const y = PADDING.top + innerH - (point.value / maxY) * innerH;
-    return {x, y, ...point};
-  });
-}
-
-/** Build a smooth cubic path through the fake monthly points. */
-function buildSmoothPath(coords: {x: number; y: number}[]) {
-  if (coords.length < 2) return "";
-
-  let path = `M ${coords[0].x} ${coords[0].y}`;
-
-  for (let i = 0; i < coords.length - 1; i++) {
-    const current = coords[i];
-    const next = coords[i + 1];
-    const cx = (current.x + next.x) / 2;
-    path += ` C ${cx} ${current.y}, ${cx} ${next.y}, ${next.x} ${next.y}`;
-  }
-
-  return path;
-}
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Filler,
+);
 
 interface ActivityChartProps {
   data?: ChartPoint[];
 }
 
+function createLineGradient(context: ScriptableContext<"line">) {
+  const {chart} = context;
+  const {ctx, chartArea} = chart;
+  if (!chartArea) return "#F04343";
+
+  const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
+  gradient.addColorStop(0, "#F04343");
+  gradient.addColorStop(0.28, "#F04343");
+  gradient.addColorStop(0.45, "#22C55E");
+  gradient.addColorStop(0.62, "#22C55E");
+  gradient.addColorStop(0.82, "#F04343");
+  gradient.addColorStop(1, "#F04343");
+  return gradient;
+}
+
 export function ActivityChart({data = chartMockData}: ActivityChartProps) {
-  const coords = getPointCoords(data);
-  const path = buildSmoothPath(coords);
-  const innerH = HEIGHT - PADDING.top - PADDING.bottom;
+  const chartData: ChartData<"line"> = {
+    labels: data.map((point) => point.month),
+    datasets: [
+      {
+        data: data.map((point) => point.value),
+        borderColor: createLineGradient,
+        borderWidth: 3,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "#22C55E",
+        pointHoverBorderColor: "#ffffff",
+        pointHoverBorderWidth: 2,
+        fill: false,
+      },
+    ],
+  };
+
+  const options: ChartOptions<"line"> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      mode: "index",
+      intersect: false,
+    },
+    plugins: {
+      legend: {display: false},
+      tooltip: {
+        rtl: true,
+        titleFont: {family: "inherit", size: 12},
+        bodyFont: {family: "inherit", size: 12},
+        displayColors: false,
+        callbacks: {
+          label: (item) => `${item.parsed.y ?? 0}`,
+        },
+      },
+    },
+    scales: {
+      x: {
+        grid: {display: false},
+        border: {display: false},
+        ticks: {
+          color: "#64748B",
+          font: {size: 11, family: "inherit"},
+          padding: 8,
+        },
+      },
+      y: {
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 20,
+          color: "#94A3B8",
+          font: {size: 11, family: "inherit"},
+          padding: 8,
+        },
+        grid: {
+          color: "#E8EBF2",
+          drawTicks: false,
+        },
+        border: {display: false},
+      },
+    },
+  };
 
   return (
-    <svg
-      viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-      className="h-auto w-full"
+    <div
+      className="relative h-55 w-full"
       role="img"
       aria-label="نمودار فعالیت شش‌ماهه"
     >
-      <defs>
-        <linearGradient id="activity-line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#F04343" />
-          <stop offset="28%" stopColor="#F04343" />
-          <stop offset="45%" stopColor="#22C55E" />
-          <stop offset="62%" stopColor="#22C55E" />
-          <stop offset="82%" stopColor="#F04343" />
-          <stop offset="100%" stopColor="#F04343" />
-        </linearGradient>
-      </defs>
-
-      {chartMeta.yTicks.map((tick) => {
-        const y = PADDING.top + innerH - (tick / 100) * innerH;
-        return (
-          <g key={tick}>
-            <line
-              x1={PADDING.left}
-              y1={y}
-              x2={WIDTH - PADDING.right}
-              y2={y}
-              stroke="#E8EBF2"
-              strokeWidth={1}
-            />
-            <text
-              x={PADDING.left - 10}
-              y={y + 4}
-              textAnchor="end"
-              className="fill-slate-400"
-              style={{fontSize: 11}}
-            >
-              {tick}
-            </text>
-          </g>
-        );
-      })}
-
-      <path
-        d={path}
-        fill="none"
-        stroke="url(#activity-line-gradient)"
-        strokeWidth={3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {coords.map((point) => (
-        <text
-          key={point.month}
-          x={point.x}
-          y={HEIGHT - 10}
-          textAnchor="middle"
-          className="fill-slate-500"
-          style={{fontSize: 11}}
-        >
-          {point.month}
-        </text>
-      ))}
-    </svg>
+      <Line data={chartData} options={options} />
+    </div>
   );
 }

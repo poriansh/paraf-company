@@ -2,7 +2,7 @@ import {Trophy} from "lucide-react";
 
 import {ActivityChart} from "@/features/ActivitySection/components/ActivityChart";
 import {chartMeta} from "@/features/ActivitySection/constants/mockData";
-import {Button} from "@/shared/components/ui/button";
+import {Button} from "@/shared/components/common/button/button";
 
 export function ActivityChartCard() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import {useEffect} from "react";
-import {Tabs, TabsContent} from "@/shared/components/ui/tabs";
+import {Tabs, TabsContent} from "@/shared/components/common/tabs/tabs";
 import {Container} from "@/shared/components/layout/container";
 import {ClubTabsHeader} from "@/features/CustomerClub/components/ClubTabsHeader";
 import {VitrinClubProfile} from "@/features/CustomerClub/components/VitrinClubProfile";

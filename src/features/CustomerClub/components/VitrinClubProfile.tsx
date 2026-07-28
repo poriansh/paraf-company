@@ -1,24 +1,24 @@
 "use client";
 
-import {useVitrinDetail} from "@/features/CustomerClub/services/useVitrinDetail";
-import {useLevels} from "@/features/CustomerClub/services/useLevels";
-import {useCustomerClubSummaryVitrin} from "@/features/CustomerClub/services/useCustomerClubSummaryVitrin";
-import {ProfileCard} from "@/features/CustomerClub/components/ProfileCard";
-import {LevelProgress} from "@/features/CustomerClub/components/LevelProgress";
-import {clubStaticCopy} from "@/features/CustomerClub/constants/mockData";
-import type {ClubProfileData} from "@/features/CustomerClub/constants/mockData";
-import {buildLevelProgress} from "@/features/CustomerClub/utils/buildLevelProgress";
-import {formatPersianNumber} from "@/shared/lib/format";
-import {getFileUrl} from "@/shared/utils/image";
+import { useVitrinDetail } from "@/features/CustomerClub/services/useVitrinDetail";
+import { useLevels } from "@/features/CustomerClub/services/useLevels";
+import { useCustomerClubSummaryVitrin } from "@/features/CustomerClub/services/useCustomerClubSummaryVitrin";
+import { ProfileCard } from "@/features/CustomerClub/components/ProfileCard";
+
+import { clubStaticCopy } from "@/features/CustomerClub/constants/mockData";
+import type { ClubProfileData } from "@/features/CustomerClub/constants/mockData";
+import { buildLevelProgress } from "@/features/CustomerClub/utils/buildLevelProgress";
+import { formatPersianNumber } from "@/shared/lib/format";
+import { getFileUrl } from "@/shared/utils/image";
 
 interface VitrinClubProfileProps {
   userVitrinId: number;
 }
 
-export function VitrinClubProfile({userVitrinId}: VitrinClubProfileProps) {
-  const {data: vitrin, isLoading: vitrinLoading} = useVitrinDetail(userVitrinId);
-  const {data: levels, isLoading: levelsLoading} = useLevels(userVitrinId);
-  const {data: summary} = useCustomerClubSummaryVitrin(userVitrinId);
+export function VitrinClubProfile({ userVitrinId }: VitrinClubProfileProps) {
+  const { data: vitrin, isLoading: vitrinLoading } = useVitrinDetail(userVitrinId);
+  const { data: levels, isLoading: levelsLoading } = useLevels();
+  const { data: summary } = useCustomerClubSummaryVitrin(userVitrinId);
 
   const score = vitrin?.scores ?? vitrin?.level?.scores;
   const progress = buildLevelProgress(levels, score);
@@ -70,7 +70,7 @@ export function VitrinClubProfile({userVitrinId}: VitrinClubProfileProps) {
   return (
     <div className="flex flex-col gap-4">
       <ProfileCard data={data} />
-      <LevelProgress data={data} />
+
     </div>
   );
 }
