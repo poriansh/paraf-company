@@ -34,7 +34,7 @@ export function WelcomeBanner() {
 
       <div
         className="
-           absolute
+           assolute
     inset-0
     z-0
     pointer-events-none
@@ -43,8 +43,8 @@ export function WelcomeBanner() {
         <Image
           src="/image/wellcombanner/FadeIn.png"
           alt="banner effect"
-          width={500}
-          height={500}
+          width={300}
+          height={300}
           className="object-contain"
         />
       </div>
