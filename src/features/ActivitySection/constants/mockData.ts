@@ -53,38 +53,7 @@ export const recentActivitiesMeta = {
   fullListLabel: "لیست کامل",
 } as const;
 export const recentActivitiesMock: ActivityItem[] = [
-  {
-    id: "1",
-    type: "score",
-    amount: "+۱۰ امتیاز",
-    description: "پاسخ تیکت شما درباره مشکل شارژ کیف پول",
-    status: "موفق",
-    time: "۱۷:۵۹ - دیروز",
-  },
-  {
-    id: "2",
-    type: "coin",
-    amount: "+۵ سکه",
-    description: "ارسال لینک دعوت دوستان به باشگاه مشتریان",
-    status: "موفق",
-    time: "۱۶:۲۰ - دیروز",
-  },
-  {
-    id: "3",
-    type: "score",
-    amount: "+۱۰ امتیاز",
-    description: "تکمیل ماموریت روزانه مشاهده محصولات جدید",
-    status: "موفق",
-    time: "۱۴:۴۵ - دیروز",
-  },
-  {
-    id: "4",
-    type: "withdraw",
-    amount: "۱۷۰- برداشت",
-    description: "برداشت سکه به حساب بانکی پاسارگاد",
-    status: "موفق",
-    time: "۱۲:۱۰ - دیروز",
-  },
+
   {
     id: "5",
     type: "transfer",
