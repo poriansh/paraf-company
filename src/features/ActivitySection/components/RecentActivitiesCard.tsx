@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import {useState} from "react";
 import {
   ArrowLeftRight,
   Eye,
@@ -18,21 +18,21 @@ import {
   type ActivityItem,
   type ActivityType,
 } from "@/features/ActivitySection/constants/mockData";
-import { cn } from "@/shared/lib/cn";
+import {Badge} from "@/shared/components/common/badge/badge";
+import {Button} from "@/shared/components/common/button/button";
+import {Card} from "@/shared/components/common/card/card";
+import {cn} from "@/shared/lib/cn";
 
-const iconStyles: Record<
-  ActivityType,
-  { wrap: string; Icon: typeof Zap }
-> = {
-  score: { wrap: "bg-teal-50 text-teal-500", Icon: Zap },
-  coin: { wrap: "bg-sky-50 text-sky-500", Icon: Link2 },
-  dual: { wrap: "bg-violet-50 text-violet-500", Icon: Sparkles },
-  withdraw: { wrap: "bg-amber-50 text-amber-500", Icon: Wallet },
-  transfer: { wrap: "bg-rose-50 text-rose-500", Icon: ArrowLeftRight },
+const iconStyles: Record<ActivityType, {wrap: string; Icon: typeof Zap}> = {
+  score: {wrap: "bg-teal-50 text-teal-500", Icon: Zap},
+  coin: {wrap: "bg-sky-50 text-sky-500", Icon: Link2},
+  dual: {wrap: "bg-violet-50 text-violet-500", Icon: Sparkles},
+  withdraw: {wrap: "bg-amber-50 text-amber-500", Icon: Wallet},
+  transfer: {wrap: "bg-rose-50 text-rose-500", Icon: ArrowLeftRight},
 };
 
-function ActivityRow({ item }: { item: ActivityItem }) {
-  const { wrap, Icon } = iconStyles[item.type];
+function ActivityRow({item}: {item: ActivityItem}) {
+  const {wrap, Icon} = iconStyles[item.type];
 
   return (
     <li className="border-b border-slate-100 py-3 last:border-b-0">
@@ -57,9 +57,12 @@ function ActivityRow({ item }: { item: ActivityItem }) {
               </p>
             </div>
 
-            <span className="hidden shrink-0 rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-600 sm:inline-block">
+            <Badge
+              variant="status"
+              className="hidden shrink-0 sm:inline-flex"
+            >
               {item.status}
-            </span>
+            </Badge>
 
             <time className="hidden w-24 shrink-0 text-left text-[11px] text-slate-400 sm:block sm:w-28 sm:text-xs">
               {item.time}
@@ -67,9 +70,7 @@ function ActivityRow({ item }: { item: ActivityItem }) {
           </div>
 
           <div className="mt-1.5 flex items-center justify-between gap-2 sm:hidden">
-            <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-600">
-              {item.status}
-            </span>
+            <Badge variant="status-sm">{item.status}</Badge>
             <time className="text-[10px] text-slate-400">{item.time}</time>
           </div>
         </div>
@@ -87,7 +88,10 @@ export function RecentActivitiesCard() {
       : recentActivitiesMock.filter((item) => item.type === filter);
 
   return (
-    <div className="flex h-full flex-col rounded-2xl bg-white p-4 shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:rounded-3xl sm:p-6">
+    <Card
+      variant="elevated"
+      className="flex h-full flex-col p-4 sm:p-6"
+    >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="min-w-0 text-right">
           <h3 className="text-base font-bold text-slate-800 sm:text-lg">
@@ -98,30 +102,31 @@ export function RecentActivitiesCard() {
           </p>
         </div>
 
-        <button
+        <Button
           type="button"
-          className="inline-flex shrink-0 items-center gap-1.5 text-xs text-slate-500 transition-colors hover:text-slate-700 sm:text-sm"
+          variant="ghost-muted"
+          size="auto"
+          className="shrink-0 gap-1.5 text-xs sm:text-sm"
+          icon={<Eye className="size-4" />}
         >
-          <Eye className="size-4" />
-          <span className="max-sm:sr-only">{recentActivitiesMeta.fullListLabel}</span>
-        </button>
+          <span className="max-sm:sr-only">
+            {recentActivitiesMeta.fullListLabel}
+          </span>
+        </Button>
       </div>
 
       <div className="-mx-1 mb-4 flex gap-2 overflow-x-auto px-1 pb-1 scrollbar-none">
         {activityFilters.map((tab) => (
-          <button
+          <Button
             key={tab.value}
             type="button"
+            size="pill"
+            variant={filter === tab.value ? "pill-active" : "pill"}
             onClick={() => setFilter(tab.value)}
-            className={cn(
-              "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors sm:text-sm",
-              filter === tab.value
-                ? "bg-slate-800 text-white"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200",
-            )}
+            className="shrink-0"
           >
             {tab.label}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -130,6 +135,6 @@ export function RecentActivitiesCard() {
           <ActivityRow key={item.id} item={item} />
         ))}
       </ul>
-    </div>
+    </Card>
   );
 }

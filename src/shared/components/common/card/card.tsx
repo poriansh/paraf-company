@@ -10,6 +10,7 @@ import {
   CardFooter as UiCardFooter,
   CardHeader as UiCardHeader,
   CardTitle as UiCardTitle,
+  cardVariants,
 } from "@/shared/components/ui/card";
 
 export type CardProps = ComponentPropsWithoutRef<typeof UiCard>;
@@ -61,3 +62,5 @@ export const CardFooter = forwardRef<
 >(function CardFooter(props, ref) {
   return <UiCardFooter ref={ref} {...props} />;
 });
+
+export {cardVariants};

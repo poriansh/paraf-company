@@ -4,10 +4,10 @@ import { useVitrinDetail } from "@/features/CustomerClub/services/useVitrinDetai
 import { useLevels } from "@/features/CustomerClub/services/useLevels";
 import { useCustomerClubSummaryVitrin } from "@/features/CustomerClub/services/useCustomerClubSummaryVitrin";
 import { ProfileCard } from "@/features/CustomerClub/components/ProfileCard";
-
 import { clubStaticCopy } from "@/features/CustomerClub/constants/mockData";
 import type { ClubProfileData } from "@/features/CustomerClub/constants/mockData";
 import { buildLevelProgress } from "@/features/CustomerClub/utils/buildLevelProgress";
+import { Card } from "@/shared/components/common/card/card";
 import { formatPersianNumber } from "@/shared/lib/format";
 import { getFileUrl } from "@/shared/utils/image";
 
@@ -61,9 +61,12 @@ export function VitrinClubProfile({ userVitrinId }: VitrinClubProfileProps) {
 
   if (vitrinLoading || levelsLoading) {
     return (
-      <div className="rounded-[28px] bg-white/70 px-6 py-16 text-center text-sm text-slate-400">
+      <Card
+        variant="soft"
+        className="px-6 py-16 text-center text-sm text-slate-400"
+      >
         در حال بارگذاری...
-      </div>
+      </Card>
     );
   }
 

@@ -1,25 +1,30 @@
 "use client";
 
-import { ArrowRight, ChevronLeft, CircleQuestionMark } from "lucide-react";
-import { WalletBalance } from "./WalletBalance";
-import { Container } from "@/shared/components/layout/container";
-import { useCurrentUser } from "@/shared/services/useCurrentUser";
+import {ArrowRight, ChevronLeft, CircleQuestionMark} from "lucide-react";
+
+import {Button} from "@/shared/components/common/button/button";
+import {Container} from "@/shared/components/layout/container";
+import {useCurrentUser} from "@/shared/services/useCurrentUser";
+
+import {WalletBalance} from "./WalletBalance";
 
 export function BreadcrumbHeader() {
-  const { data: user } = useCurrentUser();
+  const {data: user} = useCurrentUser();
 
   return (
     <div className="min-h-14 w-full border-b bg-[rgb(245,247,247)] py-2">
       <Container>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3 text-sm text-gray-400 sm:gap-5">
-            <button
+            <Button
               type="button"
-              className="flex cursor-pointer items-center gap-2 text-sm text-gray-700"
+              variant="ghost"
+              size="auto"
+              className="gap-2 text-sm text-gray-700 hover:bg-transparent hover:text-gray-900"
+              icon={<ArrowRight size={18} />}
             >
-              <ArrowRight size={18} />
               برگشت
-            </button>
+            </Button>
             <div className="hidden items-center gap-2.5 sm:flex">
               <span>صفحه اصلی</span>
               <ChevronLeft className="size-4" />
@@ -36,13 +41,14 @@ export function BreadcrumbHeader() {
               </span>
             </div>
 
-            <button
+            <Button
               type="button"
               aria-label="راهنما"
-              className="flex size-8 cursor-pointer items-center justify-center rounded-full border bg-white text-gray-400"
+              variant="outline-soft"
+              size="rounded-sm"
             >
               <CircleQuestionMark size={15} />
-            </button>
+            </Button>
 
             <WalletBalance count={user?.scores} />
           </div>

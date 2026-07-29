@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+import {Button} from "@/shared/components/common/button/button";
+import {Input} from "@/shared/components/common/input/input";
 import {Container} from "@/shared/components/layout/container";
 
 const navigationItems = [
@@ -54,18 +56,20 @@ export function DashboardHeader() {
             ))}
           </nav>
 
-          <label className="relative mx-auto hidden w-full max-w-87.5 xl:block">
-            <Search
-              aria-hidden="true"
-              className="absolute right-4 top-1/2 size-5 -translate-y-1/2 text-[#647780] stroke-[1.7]"
-            />
-            <input
+          <div className="relative mx-auto hidden w-full max-w-87.5 xl:block">
+            <Input
               aria-label="جستجو در آگهی‌ها"
-              className="h-10 w-full rounded-full border border-[#cbd3d7] bg-[#f1f4f5] pr-11 pl-5 text-sm text-[#53656c] outline-none placeholder:text-[#aab4b8] focus:border-[#83bad0]"
+              variant="search"
               placeholder="جستجو در آگهی‌ها..."
               type="search"
+              startIcon={
+                <Search
+                  aria-hidden="true"
+                  className="size-5 stroke-[1.7]"
+                />
+              }
             />
-          </label>
+          </div>
 
           <div
             className="hidden cursor-pointer shrink-0 items-center gap-1 text-[13px] font-semibold text-[#9ba7aa] md:flex"
@@ -85,27 +89,30 @@ export function DashboardHeader() {
           </a>
 
           <div className="flex shrink-0 items-center gap-2.5 border-r border-[#e7ebed] pr-2.5 text-[#20272a] sm:gap-5 sm:pr-6">
-            <button
+            <Button
               aria-label="اعلان‌ها"
-              className=" cursor-pointer transition-colors hover:text-[#0d94ca]"
+              variant="header-icon"
+              size="auto"
               type="button"
             >
               <BellRing className="size-5 stroke-[1.8]" />
-            </button>
-            <button
+            </Button>
+            <Button
               aria-label="سبد خرید"
-              className="transition-colors hover:text-[#0d94ca] cursor-pointer"
+              variant="header-icon"
+              size="auto"
               type="button"
             >
               <ShoppingCart className="size-5 stroke-[1.8]" />
-            </button>
-            <button
+            </Button>
+            <Button
               aria-label="منو"
-              className="transition-colors hover:text-[#0d94ca] cursor-pointer"
+              variant="header-icon"
+              size="auto"
               type="button"
             >
               <Grid2X2 className="size-4.75 stroke-2" />
-            </button>
+            </Button>
           </div>
         </div>
       </Container>

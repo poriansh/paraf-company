@@ -2,6 +2,7 @@
 
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
+import {useRouter} from "next/navigation";
 
 import {Button} from "@/shared/components/common/button/button";
 import {
@@ -12,15 +13,13 @@ import {
   CardTitle,
 } from "@/shared/components/common/card/card";
 import {Input} from "@/shared/components/common/input/input";
+import {setToken} from "@/shared/utils/token";
 
 import {
   loginSchema,
   type LoginFormValues,
 } from "@/features/auth/login/schemas/loginSchema";
 import useAdminLogin from "../services/useLoginMutation";
-import {setToken} from "@/shared/utils/token";
-
-import {useRouter} from "next/navigation";
 
 export function LoginForm() {
   const {mutate: login, isPending} = useAdminLogin();
@@ -45,7 +44,7 @@ export function LoginForm() {
       {
         onSuccess: (data) => {
           setToken(data.result.accessToken);
-          router.push("/")
+          router.push("/");
         },
       },
     );
@@ -88,7 +87,7 @@ export function LoginForm() {
             type="submit"
             variant="primary"
             size="lg"
-            className="mt-2 w-full justify-center bg-primary text-primary-foreground hover:bg-primary/90"
+            className="mt-2 w-full justify-center"
             isLoading={isPending}
           >
             ورود

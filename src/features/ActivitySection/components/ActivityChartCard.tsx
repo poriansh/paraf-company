@@ -3,10 +3,14 @@ import {Trophy} from "lucide-react";
 import {ActivityChart} from "@/features/ActivitySection/components/ActivityChart";
 import {chartMeta} from "@/features/ActivitySection/constants/mockData";
 import {Button} from "@/shared/components/common/button/button";
+import {Card} from "@/shared/components/common/card/card";
 
 export function ActivityChartCard() {
   return (
-    <div className="flex h-full flex-col rounded-2xl bg-white p-4 shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:rounded-3xl sm:p-6">
+    <Card
+      variant="elevated"
+      className="flex h-full flex-col p-4 sm:p-6"
+    >
       <h3 className="mb-4 text-right text-base font-bold text-slate-800 sm:text-lg">
         {chartMeta.title}
       </h3>
@@ -17,18 +21,10 @@ export function ActivityChartCard() {
           <Trophy className="mt-0.5 size-3.5 shrink-0 text-amber-500" />
         </p>
         <div className="flex flex-wrap justify-start gap-2">
-          <Button
-            variant="outline-primary"
-            size="sm"
-            className="h-8 rounded-lg border-sky-400 px-3 text-xs text-sky-600 hover:bg-sky-50"
-          >
+          <Button variant="outline-sky" size="sm" className="h-8 rounded-lg px-3">
             {chartMeta.inviteCta}
           </Button>
-          <Button
-            variant="outline-primary"
-            size="sm"
-            className="h-8 rounded-lg border-sky-400 px-3 text-xs text-sky-600 hover:bg-sky-50"
-          >
+          <Button variant="outline-sky" size="sm" className="h-8 rounded-lg px-3">
             {chartMeta.surveyCta}
           </Button>
         </div>
@@ -46,6 +42,6 @@ export function ActivityChartCard() {
       <div className="mt-auto">
         <ActivityChart />
       </div>
-    </div>
+    </Card>
   );
 }

@@ -1,7 +1,14 @@
 import Image from "next/image";
 import {BadgeCheck, CircleAlert, ExternalLink, SquareCheck} from "lucide-react";
 
+import {Badge} from "@/shared/components/common/badge/badge";
 import {Button} from "@/shared/components/common/button/button";
+import {Card} from "@/shared/components/common/card/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/shared/components/ui/avatar";
 
 import type {ClubProfileData} from "@/features/CustomerClub/constants/mockData";
 
@@ -11,7 +18,10 @@ interface ProfileCardProps {
 
 export function ProfileCard({data}: ProfileCardProps) {
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-[0_8px_30px_rgba(80,100,160,0.08)] sm:rounded-[28px] sm:p-6 lg:p-7">
+    <Card
+      variant="elevated"
+      className="rounded-2xl p-4 sm:rounded-[28px] sm:p-6 lg:p-7"
+    >
       <div className="grid gap-5 lg:grid-cols-[1.2fr_0.95fr_1.15fr] lg:items-center lg:gap-4 xl:gap-6">
         <div className="order-2 flex flex-col gap-3 lg:order-0">
           <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
@@ -49,9 +59,7 @@ export function ProfileCard({data}: ProfileCardProps) {
           </div>
 
           <div className="flex flex-row-reverse flex-wrap items-center justify-end gap-2 text-xs text-slate-500">
-            <span className="rounded-full bg-slate-100 px-2.5 py-1">
-              {data.recentLabel}
-            </span>
+            <Badge variant="muted">{data.recentLabel}</Badge>
             <span>{data.recentCoins}</span>
           </div>
         </div>
@@ -63,8 +71,9 @@ export function ProfileCard({data}: ProfileCardProps) {
           </div>
 
           <Button
-            variant="primary"
-            className="h-11 w-full flex-row-reverse rounded-xl bg-sky-500 px-6 text-sm font-medium shadow-none hover:bg-sky-600 lg:w-auto"
+            variant="sky"
+            size="xl"
+            className="w-full flex-row-reverse rounded-xl px-6 text-sm font-medium lg:w-auto"
             icon={<ExternalLink className="size-4" />}
           >
             {data.missionCta}
@@ -73,14 +82,16 @@ export function ProfileCard({data}: ProfileCardProps) {
 
         <div className="order-1 flex flex-row-reverse items-center gap-3 sm:gap-4 lg:order-0">
           {data.profileImageUrl ? (
-            <Image
-              src={data.profileImageUrl}
-              alt={data.name}
-              width={96}
-              height={96}
-              className="size-16 shrink-0 rounded-2xl object-cover sm:size-20 md:size-24"
-              unoptimized
-            />
+            <Avatar className="size-16 shrink-0 rounded-2xl sm:size-20 md:size-24">
+              <AvatarImage
+                src={data.profileImageUrl}
+                alt={data.name}
+                className="rounded-2xl object-cover"
+              />
+              <AvatarFallback className="rounded-2xl text-lg">
+                {data.name.slice(0, 1)}
+              </AvatarFallback>
+            </Avatar>
           ) : null}
 
           <div className="min-w-0 flex-1 text-left">
@@ -102,6 +113,6 @@ export function ProfileCard({data}: ProfileCardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

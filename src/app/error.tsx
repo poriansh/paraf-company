@@ -2,6 +2,8 @@
 
 import {CircleAlert} from "lucide-react";
 
+import {Button} from "@/shared/components/common/button/button";
+
 interface GlobalErrorProps {
   error: Error & {digest?: string};
   reset: () => void;
@@ -30,13 +32,15 @@ export default function GlobalError({error, reset}: GlobalErrorProps) {
             "خطایی غیرمنتظره رخ داده است. لطفاً دوباره تلاش کنید."}
         </p>
 
-        <button
+        <Button
           type="button"
+          variant="dark"
+          size="xl"
           onClick={reset}
-          className="mt-8 cursor-pointer inline-flex min-h-11 items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2"
+          className="mt-8 min-h-11 rounded-lg"
         >
           تلاش مجدد
-        </button>
+        </Button>
       </section>
     </main>
   );

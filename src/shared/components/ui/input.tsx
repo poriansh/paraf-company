@@ -1,37 +1,59 @@
 import * as React from "react";
+import {cva, type VariantProps} from "class-variance-authority";
+import {IoCopyOutline, IoEyeOffOutline, IoEyeOutline} from "react-icons/io5";
 
 import {cn} from "@/shared/lib/cn";
 import {Label} from "@/shared/components/ui/label";
+import {Button} from "@/shared/components/ui/button";
 import {showToast} from "@/shared/lib/toast";
-import { IoCopyOutline } from 'react-icons/io5';
-import { IoEyeOffOutline } from 'react-icons/io5';
-import { IoEyeOutline } from 'react-icons/io5';
 
 export type InputSizeType_global = "sm" | "md" | "lg";
 
-const inputBorderClasses =
-  "border-2 border-panel-text/25 outline-none transition-[border-color,box-shadow] focus:border-panel-primary focus-visible:border-panel-primary disabled:border-panel-text/15";
+const inputVariants = cva(
+  "w-full min-w-0 text-base file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm outline-none transition-[border-color,box-shadow]",
+  {
+    variants: {
+      variant: {
+        default:
+          "rounded-lg border-2 border-border bg-transparent px-2.5 py-1 text-foreground placeholder:text-muted-foreground focus:border-primary focus-visible:border-primary disabled:border-border/60",
+        search:
+          "h-10 rounded-full border border-[#cbd3d7] bg-[#f1f4f5] pr-11 pl-5 text-sm text-[#53656c] placeholder:text-[#aab4b8] focus:border-[#83bad0] focus-visible:border-[#83bad0]",
+      },
+      inputSize: {
+        sm: "h-8 text-xs",
+        md: "h-9 text-sm",
+        lg: "h-10 text-sm",
+      },
+    },
+    compoundVariants: [
+      {
+        variant: "search",
+        class: "h-10 text-sm",
+      },
+    ],
+    defaultVariants: {
+      variant: "default",
+      inputSize: "md",
+    },
+  },
+);
 
-const inputSizeClasses: Record<InputSizeType_global, string> = {
-  sm: "h-8 text-xs",
-  md: "h-9 text-sm",
-  lg: "h-10 text-sm",
-};
-
-type InputProps = React.ComponentProps<"input"> & {
-  inputSize?: InputSizeType_global;
-  showPasswordToggle?: boolean;
-  enableCopy?: boolean;
-  label?: string;
-  labelClassName?: string;
-  error?: string;
-};
+type InputProps = React.ComponentProps<"input"> &
+  VariantProps<typeof inputVariants> & {
+    showPasswordToggle?: boolean;
+    enableCopy?: boolean;
+    label?: string;
+    labelClassName?: string;
+    error?: string;
+    startIcon?: React.ReactNode;
+  };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
       type,
+      variant = "default",
       inputSize = "md",
       showPasswordToggle = false,
       enableCopy = false,
@@ -41,6 +63,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       error,
       value,
       id,
+      startIcon,
       ...props
     },
     ref,
@@ -50,6 +73,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       id || props.name || `input-${Math.random().toString(36).slice(2, 9)}`;
 
     const isPasswordField = type === "password" && showPasswordToggle;
+    const showAccessory = enableCopy || isPasswordField;
 
     const handleCopy = async () => {
       if (value) {
@@ -75,6 +99,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
 
         <div className="relative">
+          {startIcon ? (
+            <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[#647780]">
+              {startIcon}
+            </span>
+          ) : null}
+
           <input
             ref={ref}
             id={inputId}
@@ -83,10 +113,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             data-slot="input"
             value={value}
             className={cn(
-              "w-full min-w-0 rounded-lg bg-transparent px-2.5 py-1 text-base text-panel-text file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-panel-text/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-              inputBorderClasses,
-              inputSizeClasses[inputSize],
-              (enableCopy || isPasswordField) && "pl-10",
+              inputVariants({
+                variant,
+                inputSize: variant === "search" ? null : inputSize,
+              }),
+              showAccessory && "pl-10",
               error &&
                 "border-red-500 focus:border-red-500 focus-visible:border-red-500",
               className,
@@ -95,27 +126,33 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
 
           {enableCopy && (
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon-sm"
               onClick={handleCopy}
-              className="absolute inset-y-0 left-2 flex cursor-pointer items-center text-gray-500"
+              className="absolute inset-y-0 left-2 my-auto text-gray-500 hover:bg-transparent hover:text-gray-700"
+              aria-label="کپی"
             >
               <IoCopyOutline size={18} />
-            </button>
+            </Button>
           )}
 
           {isPasswordField && (
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon-sm"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute inset-y-0 left-2 flex cursor-pointer items-center text-gray-500"
+              className="absolute inset-y-0 left-2 my-auto text-gray-500 hover:bg-transparent hover:text-gray-700"
+              aria-label={showPassword ? "مخفی کردن رمز" : "نمایش رمز"}
             >
               {showPassword ? (
                 <IoEyeOffOutline size={18} />
               ) : (
                 <IoEyeOutline size={18} />
               )}
-            </button>
+            </Button>
           )}
         </div>
         {error && <p className="text-sm text-red-500">{error}</p>}
@@ -126,4 +163,4 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = "Input";
 
-export {Input};
+export {Input, inputVariants};
