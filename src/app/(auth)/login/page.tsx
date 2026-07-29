@@ -2,11 +2,6 @@ import {Gem} from "lucide-react";
 
 import {LoginForm} from "@/features/auth/login";
 
-export const metadata = {
-  title: "ورود",
-  description: "ورود به باشگاه مشتریان پارف",
-};
-
 export default function LoginPage() {
   return (
     <div className="flex w-full max-w-md flex-col items-center justify-center px-1">

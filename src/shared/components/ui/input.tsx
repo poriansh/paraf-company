@@ -69,8 +69,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     const [showPassword, setShowPassword] = React.useState(false);
-    const inputId =
-      id || props.name || `input-${Math.random().toString(36).slice(2, 9)}`;
+    const inputId = id 
 
     const isPasswordField = type === "password" && showPasswordToggle;
     const showAccessory = enableCopy || isPasswordField;
