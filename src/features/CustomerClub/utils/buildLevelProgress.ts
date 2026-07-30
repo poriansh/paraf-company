@@ -2,6 +2,9 @@ import type {LevelItem} from "@/features/CustomerClub/types/level.types";
 import {getFileUrl} from "@/shared/utils/image";
 import {formatPersianNumber} from "@/shared/lib/format";
 
+/**
+ * View model for a single club level used by the UI.
+ */
 export interface ClubLevelView {
   id: string;
   label: string;
@@ -9,6 +12,9 @@ export interface ClubLevelView {
   scores: number;
 }
 
+/**
+ * Aggregated view describing progress across levels.
+ */
 export interface LevelProgressView {
   levels: ClubLevelView[];
   currentLevelLabel: string;
@@ -24,6 +30,10 @@ export interface LevelProgressView {
   startLabel: string;
 }
 
+/**
+ * Parse a raw score value into a finite number. Returns `0` for missing or
+ * invalid inputs.
+ */
 function parseScore(value?: string | number | null): number {
   if (value === undefined || value === null || value === "") return 0;
   const numeric = typeof value === "number" ? value : Number(value);
@@ -34,6 +44,15 @@ export function buildLevelProgress(
   levels: LevelItem[] | undefined,
   rawScore: string | number | null | undefined,
 ): LevelProgressView {
+  /**
+   * Build a UI-friendly view model from raw level definitions and a user
+   * score.
+   *
+   * - Sorts levels by their score threshold.
+   * - Computes `current` and `next` levels and the percent progress between
+   *   them.
+   * - Formats numeric values using `formatPersianNumber` for display.
+   */
   const score = parseScore(rawScore);
   const sorted = [...(levels ?? [])]
     .map((level) => ({

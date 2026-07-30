@@ -5,6 +5,12 @@ import {chartMeta} from "@/features/ActivitySection/constants/mockData";
 import {Button} from "@/shared/components/common/button/button";
 import {Card} from "@/shared/components/common/card/card";
 
+/**
+ * Card wrapper that displays activity contextual information and the
+ * `ActivityChart` visualization.
+ *
+ * Includes actions (invite, survey) and a short summary/alert section.
+ */
 export function ActivityChartCard() {
   return (
     <Card

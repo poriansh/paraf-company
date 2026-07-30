@@ -4,15 +4,31 @@ import Image from "next/image";
 const SCORE_MAX = 200;
 
 interface WalletBalanceProps {
+  /**
+   * Score/count that drives the visual wallet progress. Can be numeric or
+   * stringified number.
+   */
   count?: string | number;
 }
 
+/**
+ * Parse a possibly-empty or string numeric value into a safe finite number.
+ *
+ * Returns `0` for undefined, empty or non-finite values.
+ */
 function parseScore(count?: string | number) {
   if (count === undefined || count === "") return 0;
   const numeric = typeof count === "number" ? count : Number(count);
   return Number.isFinite(numeric) ? numeric : 0;
 }
 
+/**
+ * Compact wallet balance UI showing a progress bar and branded logo.
+ *
+ * - Accepts `count` and maps it to a `progress` percent within a capped
+ *   `SCORE_MAX` range.
+ * - Uses `role="progressbar"` for accessibility and animates width.
+ */
 export function WalletBalance({count}: WalletBalanceProps) {
   const score = parseScore(count);
   const progress = Math.min(Math.max(score / SCORE_MAX, 0), 1);

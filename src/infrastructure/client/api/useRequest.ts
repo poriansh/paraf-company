@@ -6,6 +6,18 @@ import type {
 } from "@/infrastructure/client/api/types/model";
 import {getToken} from "@/shared/utils/token";
 
+/**
+ * Generic data fetching hook built on `react-query`.
+ *
+ * - Handles Authorization header injection using `getToken()`.
+ * - Supports `staleTime`, `refetchInterval`, `select` mapping and custom headers.
+ * - Uses the shared `app` Axios instance and the `ApiResponse<T>` envelope.
+ *
+ * @template TData - The raw API result type.
+ * @template TSelected - Optional selector output type.
+ * @param props - `UseRequestProps` controlling query behavior and headers.
+ * @returns A `useQuery` result for the requested data.
+ */
 export const useRequest = <TData, TSelected = TData>({
   queryKey,
   url,

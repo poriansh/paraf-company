@@ -7,6 +7,18 @@ import type {
 } from "@/infrastructure/client/api/types/model";
 import {showToast} from "@/shared/lib/toast";
 import type {AxiosError} from "axios";
+/**
+ * Generic mutation hook wrapper using `react-query`'s `useMutation`.
+ *
+ * - Sends requests via the shared `app` Axios instance.
+ * - Supports `customBaseUrl`, `isFormData` (toggle JSON `Content-Type`),
+ *   and automatic success/error toasts (can be disabled via `hideToast`).
+ *
+ * @template T - Expected response `result` type contained in `ApiResponse<T>`.
+ * @template S - Optional payload/request shape.
+ * @param options - `MutateQuery` controlling HTTP method, url and callbacks.
+ * @returns The `useMutation` object from `react-query`.
+ */
 const useMutate = <T, S = unknown>({
   method,
   url,

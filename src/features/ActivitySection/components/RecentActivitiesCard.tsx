@@ -31,6 +31,14 @@ const iconStyles: Record<ActivityType, {wrap: string; Icon: typeof Zap}> = {
   transfer: {wrap: "bg-rose-50 text-rose-500", Icon: ArrowLeftRight},
 };
 
+/**
+ * Render a single activity row.
+ *
+ * Keeps presentation logic (icon mapping, status badge and time) local to the
+ * list item for easy reuse and testing.
+ *
+ * @param item - Activity item to render.
+ */
 function ActivityRow({item}: {item: ActivityItem}) {
   const {wrap, Icon} = iconStyles[item.type];
 
@@ -79,6 +87,14 @@ function ActivityRow({item}: {item: ActivityItem}) {
   );
 }
 
+/**
+ * Recent activities feed with simple client-side filtering.
+ *
+ * - Maintains local `filter` state and performs in-memory filtering of the
+ *   demo `recentActivitiesMock` data.
+ * - Suitable for small lists; replace with server-side pagination when data
+ *   grows.
+ */
 export function RecentActivitiesCard() {
   const [filter, setFilter] = useState<ActivityFilter>("all");
 

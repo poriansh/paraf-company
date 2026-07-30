@@ -17,6 +17,13 @@ const floatTransition = {
   ease: "easeInOut" as const,
 };
 
+/**
+ * Animated welcome banner shown on the dashboard.
+ *
+ * - Uses `motion` for entrance and float animations and `next/image` for
+ *   optimized images.
+ * - Reads the current user via `useCurrentUser` to personalize the message.
+ */
 export function WelcomeBanner() {
   const { data: user } = useCurrentUser();
   return (

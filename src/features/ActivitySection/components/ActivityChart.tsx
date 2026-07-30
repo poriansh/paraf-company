@@ -30,6 +30,15 @@ interface ActivityChartProps {
   data?: ChartPoint[];
 }
 
+/**
+ * Create a horizontal gradient for the chart line. Returns a CanvasGradient
+ * when the chart area is available, otherwise returns a fallback color.
+ *
+ * This function is used as a scriptable `borderColor` callback by Chart.js
+ * to produce a segmented gradient that visually encodes performance bands.
+ *
+ * @param context - Chart.js scriptable context for a `line` dataset.
+ */
 function createLineGradient(context: ScriptableContext<"line">) {
   const {chart} = context;
   const {ctx, chartArea} = chart;
@@ -45,6 +54,15 @@ function createLineGradient(context: ScriptableContext<"line">) {
   return gradient;
 }
 
+/**
+ * Line chart visualizing recent activity values.
+ *
+ * - Uses Chart.js + `react-chartjs-2`.
+ * - Accepts optional `data` points and falls back to `chartMockData`.
+ * - Configured with RTL-friendly tooltips and fixed y-axis range [0,100].
+ *
+ * @param props.data - Array of chart points (month/value pairs).
+ */
 export function ActivityChart({data = chartMockData}: ActivityChartProps) {
   const chartData: ChartData<"line"> = {
     labels: data.map((point) => point.month),

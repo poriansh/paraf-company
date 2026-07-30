@@ -1,5 +1,10 @@
 import Image from "next/image";
 
+/**
+ * Simple visual banner section used on marketing pages.
+ *
+ * Renders a full-width image using `next/image` with responsive sizing.
+ */
 export function BannerSection() {
   return (
     <section className="pb-10 sm:pb-16 md:pb-20">
